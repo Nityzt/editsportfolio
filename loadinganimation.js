@@ -148,7 +148,7 @@ function animateThumbnails8(){
 
     gsap.to(".video-thumb1", {
 
-        x:260,
+        x:0,
         
         duration:2,
         ease: "power3.inOut",
@@ -159,7 +159,7 @@ function animateThumbnails9(){
 
     gsap.to(".video-thumb2", {
 
-        x:260,
+        x:0,
         
         duration:2,
         ease: "power3.inOut",
