@@ -67,7 +67,7 @@ document.querySelectorAll('.video-thumb1, .video-thumb2').forEach(function(mainT
             ease: "power2.inOut"
             
         });
-        backgroundVideo.src = "previews/dolzeur preview.mp4"; // Set your default video here
+        backgroundVideo.src = "previews/biggerpreviewedited.mp4"; // Set your default video here
         backgroundVideo.play();
 
     });
