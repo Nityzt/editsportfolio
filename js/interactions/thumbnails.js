@@ -70,14 +70,14 @@ export function animateThumbnails() {
     x: 0,
     duration: 2,
     ease: "power3.inOut",
-    delay: 4,
+    delay: 3.8,
   });
 
   gsap.to(".video-thumb2", {
     x: 0,
     duration: 2,
     ease: "power3.inOut",
-    delay: 4,
+    delay: 3.8,
   });
 
   gsap.to(".scroll-indicator", {
