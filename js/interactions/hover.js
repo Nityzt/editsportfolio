@@ -1,16 +1,22 @@
 // js/interactions/hover-thumbs.js
 
-import { backgroundVideo, getAllVideoThumbs } from '../core/constants.js';
+import { backgroundVideo } from '../core/constants.js';
 
 export function initHoverThumbs() {
-  const allVideoThumbs = getAllVideoThumbs();
+  const allVideoThumbs = document.querySelectorAll('.video-thumb1, .video-thumb2');
 
   allVideoThumbs.forEach(mainThumb => {
     mainThumb.addEventListener('mouseenter', () => {
-      const videoSrc = mainThumb.getAttribute('data-video-background');
+      const innerThumb = mainThumb.querySelector('[data-video-background]');
+      const videoSrc = innerThumb ? innerThumb.getAttribute('data-video-background') : null;
+
       if (videoSrc && backgroundVideo) {
-        backgroundVideo.src = videoSrc;
-        backgroundVideo.play();
+        const sourceElement = backgroundVideo.querySelector('source');
+        if (sourceElement) {
+          sourceElement.src = videoSrc;
+          backgroundVideo.load();
+          backgroundVideo.play();
+        }
       }
 
       const thumbPrefix = mainThumb.classList.contains('video-thumb1') ? '.thumb1-' : '.thumb2-';
@@ -44,8 +50,12 @@ export function initHoverThumbs() {
 
       // Reset background video to default
       if (backgroundVideo) {
-        backgroundVideo.src = "previews/biggerpreviewedited.mp4";
-        backgroundVideo.play();
+        const sourceElement = backgroundVideo.querySelector('source');
+        if (sourceElement) {
+          sourceElement.src = 'previews/biggerpreviewedited.mp4';
+          backgroundVideo.load();
+          backgroundVideo.play();
+        }
       }
     });
   });

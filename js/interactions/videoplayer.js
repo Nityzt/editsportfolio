@@ -1,56 +1,48 @@
+// js/interactions/video-player.js
 
-// video player
-document.querySelectorAll('.video-thumb1').forEach(thumb1 => {
-    thumb1.addEventListener('click', () => {
-        const videoId = thumb1.getAttribute('data-video');
-        const videoPlayer = document.getElementById('video-player');
-        const video = document.querySelector('#video-player iframe');
+export function initVideoPlayer() {
+  const videoPlayer = document.getElementById('video-player');
+  const closePlayerButton = document.getElementById('close-player');
+  const videoFrame = document.querySelector('#video-player iframe');
 
-        // Set the source of the iframe to the YouTube embed link
-        video.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}`;
+  // Attach click listeners to video-thumb wrappers
+  document.querySelectorAll('.video-thumb1, .video-thumb2').forEach(thumbWrapper => {
+    thumbWrapper.addEventListener('click', (event) => {
+      // Find the closest element with data-video (could be the inner .thumbX)
+      const target = event.target.closest('[data-video]');
 
-        videoPlayer.style.display = 'block';
+      if (target) {
+        const videoId = target.getAttribute('data-video');
 
+        // Only open player if data-video exists
+        if (videoId) {
+          // Check if it's a YouTube ID or a .mp4
+          if (videoId.endsWith('.mp4')) {
+            videoFrame.src = videoId; // Play raw mp4
+          } else {
+            videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}`;
+          }
+
+          videoPlayer.style.display = 'block';
+        }
+      }
     });
-});
+  });
 
-document.querySelectorAll('.video-thumb2').forEach(thumb2 => {
-    thumb2.addEventListener('click', () => {
-        const videoId = thumb2.getAttribute('data-video');
-        const videoPlayer = document.getElementById('video-player');
-        const video = document.querySelector('#video-player iframe');
+  // Close button
+  closePlayerButton.addEventListener('click', () => {
+    closeVideoPlayer(videoPlayer, videoFrame);
+  });
 
-        // Set the source of the iframe to the YouTube embed link
-        video.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}`;
-
-        videoPlayer.style.display = 'block';
-
-    });
-});
-
-
-document.getElementById('close-player').addEventListener('click', () => {
-    const videoPlayer = document.getElementById('video-player');
-    const video = document.querySelector('#video-player iframe');
-    
-    // Hide the video player
-    videoPlayer.style.display = 'none';
-    
-    // Stop the video playback by removing the source
-    video.src = '';
-});
-
-document.addEventListener('keydown', (event) => {
+  // Escape key support
+  document.addEventListener('keydown', event => {
     if (event.key === 'Escape') {
-        const videoPlayer = document.getElementById('video-player');
-        const video = document.querySelector('#video-player iframe');
-
-        // Hide the video player
-        videoPlayer.style.display = 'none';
-        
-        // Stop the video playback
-        video.src = '';
+      closeVideoPlayer(videoPlayer, videoFrame);
     }
-});
+  });
+}
 
-
+function closeVideoPlayer(videoPlayer, videoFrame) {
+  videoPlayer.style.display = 'none';
+  videoFrame.src = '';
+}
