@@ -1,8 +1,12 @@
 
-import { preloader } from '../core/constants.js';
+import { preloader } from './constants.js';
+import { animateThumbnails } from '../interactions/thumbnails.js';
 
-export function initPreloader(onComplete = () => {}) {
+export function initPreloader() {
   let progress = 0;
+
+  // Start animation while loader counts up
+  animateThumbnails();
 
   const interval = setInterval(() => {
     if (progress < 100) {
@@ -10,13 +14,14 @@ export function initPreloader(onComplete = () => {}) {
       preloader.innerText = `${progress}%`;
     } else {
       clearInterval(interval);
+
+      // Fade out after loading
       gsap.to("#preloader", {
         opacity: 0,
         duration: 1,
         onComplete: () => {
-          preloader.style.display = "none";
-          onComplete(); // ✅ call onComplete after preloader hides
-        },
+          preloader.style.display = 'none';
+        }
       });
     }
   }, 20);
