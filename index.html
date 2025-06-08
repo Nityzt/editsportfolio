@@ -31,6 +31,18 @@
     padding: 0;
     box-sizing: border-box;
 }
+#background-video-player {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  filter: grayscale(70%);
+}
 
 body {
     scroll-behavior: smooth;
@@ -43,6 +55,8 @@ body {
     overflow-x: hidden;
     overflow-y: hidden;
 }
+
+
 
 #background-videodefault {
             position: fixed;
@@ -59,6 +73,8 @@ body {
             object-fit: cover;
             filter: grayscale(50%);
         }
+
+
 
 .content-wrapper {
     /* position: relative; */
@@ -205,32 +221,23 @@ body {
     /* z-index: 4; */
 }
 
-
-
-
-
-
-
 #video-player {
-    display: none; /* Initially hidden */
-    position: fixed; /* Position it in a fixed location */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Center the player */
-    z-index: 1000; /* Make sure it's above other content */
-    width: 80%; /* Adjust for responsiveness */
-    max-width: 800px; /* Set a max width */
-    background: #000; /* Background color */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  display: none;
 }
 
-
-
 #video-player iframe {
-            width: 100%; /* Make iframe responsive */
-            height: 450px; /* Set height */
-            z-index: 1000;
-        }
-
+  width: 80vw;
+  height: 80vh;
+  max-width: 800px;
+  max-height: 450px;
+  object-fit: contain;
+  background: #000;
+}
 
     </style>
     
@@ -241,6 +248,7 @@ body {
     <video id="background-videodefault" autoplay loop muted >
         <source src= "previews/biggerpreviewedited.mp4" type="video/mp4">
     </video>
+    
     <div class="content-wrapper">
 
    
@@ -333,6 +341,10 @@ body {
     <button id="close-player">Close</button>
     <iframe src="" frameborder="0" allowfullscreen></iframe>
 </div>
+
+<video id="background-video-player" muted loop>
+      <source src="previews/player-background.mp4" type="video/mp4" />
+    </video>
 
 <div class="scroll-indicator"></div>
 </div>

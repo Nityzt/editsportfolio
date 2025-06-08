@@ -1,6 +1,7 @@
 
 import { preloader } from './constants.js';
 import { animateThumbnails } from '../interactions/thumbnails.js';
+import { initVideoPlayer } from '../interactions/videoplayer.js';
 
 export function initPreloader() {
   let progress = 0;
@@ -17,12 +18,13 @@ export function initPreloader() {
 
       // Fade out after loading
       gsap.to("#preloader", {
-        opacity: 0,
-        duration: 1,
-        onComplete: () => {
-          preloader.style.display = 'none';
-        }
-      });
+  opacity: 0,
+  duration: 1,
+  onComplete: () => {
+    preloader.style.display = 'none';
+    initVideoPlayer(); // call AFTER preloader finishes
+  }
+});
     }
   }, 20);
 }

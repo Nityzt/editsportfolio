@@ -1,48 +1,88 @@
-// js/interactions/video-player.js
+// js/interactions/videoplayer.js
+
+import { backgroundVideo } from '../core/constants.js';
 
 export function initVideoPlayer() {
-  const videoPlayer = document.getElementById('video-player');
-  const closePlayerButton = document.getElementById('close-player');
-  const videoFrame = document.querySelector('#video-player iframe');
+  const backgroundPlayerVideo = document.getElementById('background-video-player');
+  const backgroundPlayerSource = backgroundPlayerVideo ? backgroundPlayerVideo.querySelector('source') : null;
 
-  // Attach click listeners to video-thumb wrappers
-  document.querySelectorAll('.video-thumb1, .video-thumb2').forEach(thumbWrapper => {
-    thumbWrapper.addEventListener('click', (event) => {
-      // Find the closest element with data-video (could be the inner .thumbX)
-      const target = event.target.closest('[data-video]');
+  document.querySelectorAll('.video-thumb1, .video-thumb2').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      const videoId = thumb.getAttribute('data-video')
+        || thumb.querySelector('[data-video]')?.getAttribute('data-video');
 
-      if (target) {
-        const videoId = target.getAttribute('data-video');
+      const videoPlayer = document.getElementById('video-player');
+      const video = document.querySelector('#video-player iframe');
 
-        // Only open player if data-video exists
-        if (videoId) {
-          // Check if it's a YouTube ID or a .mp4
-          if (videoId.endsWith('.mp4')) {
-            videoFrame.src = videoId; // Play raw mp4
-          } else {
-            videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}`;
-          }
+      
 
-          videoPlayer.style.display = 'block';
-        }
+      // Always open the player first
+      videoPlayer.style.display = 'block';
+
+      // Set the source of the iframe to the YouTube embed link or local video
+      if (videoId.endsWith('.mp4')) {
+        video.src = videoId;
+      } else {
+        video.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}`;
+      }
+
+      // Now trigger background fade safely
+      if (backgroundPlayerVideo && backgroundPlayerSource) {
+        backgroundPlayerSource.src = 'previews/player-background.mp4';
+        backgroundPlayerVideo.load();
+        backgroundPlayerVideo.play().catch(err => {
+          console.log('Background player play interrupted:', err);
+        });
+
+        gsap.to('#background-video-player', {
+          opacity: 1,
+          duration: 1,
+          ease: 'power2.inOut'
+        });
       }
     });
   });
 
-  // Close button
-  closePlayerButton.addEventListener('click', () => {
-    closeVideoPlayer(videoPlayer, videoFrame);
-  });
+  // Close player logic:
+  document.getElementById('close-player').addEventListener('click', () => {
+    const videoPlayer = document.getElementById('video-player');
+    const video = document.querySelector('#video-player iframe');
 
-  // Escape key support
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') {
-      closeVideoPlayer(videoPlayer, videoFrame);
+    videoPlayer.style.display = 'none';
+    video.src = '';
+
+    // Fade out background player video and pause it safely
+    if (backgroundPlayerVideo) {
+      gsap.to('#background-video-player', {
+        opacity: 0,
+        duration: 1,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          backgroundPlayerVideo.pause();
+        }
+      });
     }
   });
-}
 
-function closeVideoPlayer(videoPlayer, videoFrame) {
-  videoPlayer.style.display = 'none';
-  videoFrame.src = '';
+  // Optional: Close player on Escape key
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      const videoPlayer = document.getElementById('video-player');
+      const video = document.querySelector('#video-player iframe');
+
+      videoPlayer.style.display = 'none';
+      video.src = '';
+
+      if (backgroundPlayerVideo) {
+        gsap.to('#background-video-player', {
+          opacity: 0,
+          duration: 1,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            backgroundPlayerVideo.pause();
+          }
+        });
+      }
+    }
+  });
 }

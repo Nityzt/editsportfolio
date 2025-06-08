@@ -8,7 +8,7 @@ import { initIdleAnimation } from './interactions/idle-animation.js';
 document.addEventListener('DOMContentLoaded', () => {
   initPreloader();
   initHoverThumbs();
-  initVideoPlayer();
+  // initVideoPlayer();
   fadeBackgroundVideoIn();
   initHorizontalScroll();
   initIdleAnimation();

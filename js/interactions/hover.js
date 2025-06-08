@@ -15,7 +15,9 @@ export function initHoverThumbs() {
         if (sourceElement) {
           sourceElement.src = videoSrc;
           backgroundVideo.load();
-          backgroundVideo.play();
+          backgroundVideo.play().catch(err => {
+  console.log('Background video play interrupted:', err);
+});
         }
       }
 
@@ -54,7 +56,9 @@ export function initHoverThumbs() {
         if (sourceElement) {
           sourceElement.src = 'previews/biggerpreviewedited.mp4';
           backgroundVideo.load();
-          backgroundVideo.play();
+          backgroundVideo.play().catch(err => {
+  console.log('Background video play interrupted:', err);
+});
         }
       }
     });
