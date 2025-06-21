@@ -1,4 +1,3 @@
-// js/interactions/hover-thumbs.js
 
 import { backgroundVideo } from '../core/constants.js';
 
@@ -15,20 +14,23 @@ export function initHoverThumbs() {
         if (sourceElement) {
           sourceElement.src = videoSrc;
           backgroundVideo.load();
-          backgroundVideo.play().catch(err => {
-  console.log('Background video play interrupted:', err);
-});
+          backgroundVideo.play();
         }
       }
 
-      const thumbPrefix = mainThumb.classList.contains('video-thumb1') ? '.thumb1-' : '.thumb2-';
+      // Get the inner `.thumbX` element and extract X
+      const thumbGroup = mainThumb.querySelector('[class^="thumb"]');
+      const match = [...thumbGroup.classList].find(cls => /^thumb\d+$/.test(cls));
+      const thumbNum = match?.replace('thumb', '') || '';
+      const thumbPrefix = `.thumb${thumbNum}-`;
 
       ['1', '2', '3', '4'].forEach(num => {
-        gsap.killTweensOf(mainThumb.querySelectorAll(`${thumbPrefix}${num}`));
+        const elements = mainThumb.querySelectorAll(`${thumbPrefix}${num}`);
+        gsap.killTweensOf(elements);
 
         const positions = [-340, -170, 170, 340];
 
-        gsap.to(mainThumb.querySelectorAll(`${thumbPrefix}${num}`), {
+        gsap.to(elements, {
           y: positions[num - 1],
           opacity: 1,
           duration: 0.6,
@@ -39,26 +41,27 @@ export function initHoverThumbs() {
     });
 
     mainThumb.addEventListener('mouseleave', () => {
-      const thumbPrefix = mainThumb.classList.contains('video-thumb1') ? '.thumb1-' : '.thumb2-';
+      const thumbGroup = mainThumb.querySelector('[class^="thumb"]');
+      const match = [...thumbGroup.classList].find(cls => /^thumb\d+$/.test(cls));
+      const thumbNum = match?.replace('thumb', '') || '';
+      const thumbPrefix = `.thumb${thumbNum}-`;
 
-      gsap.killTweensOf(mainThumb.querySelectorAll(`${thumbPrefix}1, ${thumbPrefix}2, ${thumbPrefix}3, ${thumbPrefix}4`));
+      const elements = mainThumb.querySelectorAll(`${thumbPrefix}1, ${thumbPrefix}2, ${thumbPrefix}3, ${thumbPrefix}4`);
+      gsap.killTweensOf(elements);
 
-      gsap.to(mainThumb.querySelectorAll(`${thumbPrefix}1, ${thumbPrefix}2, ${thumbPrefix}3, ${thumbPrefix}4`), {
+      gsap.to(elements, {
         y: 0,
         opacity: 0,
         duration: 0.2,
         ease: "power2.inOut",
       });
 
-      // Reset background video to default
       if (backgroundVideo) {
         const sourceElement = backgroundVideo.querySelector('source');
         if (sourceElement) {
           sourceElement.src = 'previews/biggerpreviewedited.mp4';
           backgroundVideo.load();
-          backgroundVideo.play().catch(err => {
-  console.log('Background video play interrupted:', err);
-});
+          backgroundVideo.play();
         }
       }
     });
