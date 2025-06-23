@@ -14,19 +14,14 @@ export function initVideoPlayer() {
       const videoPlayer = document.getElementById('video-player');
       const video = document.querySelector('#video-player iframe');
 
-      
-
-      // Always open the player first
       videoPlayer.style.display = 'block';
 
-      // Set the source of the iframe to the YouTube embed link or local video
       if (videoId.endsWith('.mp4')) {
         video.src = videoId;
       } else {
         video.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}`;
       }
 
-      // Now trigger background fade safely
       if (backgroundPlayerVideo && backgroundPlayerSource) {
         backgroundPlayerSource.src = 'previews/player-background.mp4';
         backgroundPlayerVideo.load();
@@ -43,7 +38,6 @@ export function initVideoPlayer() {
     });
   });
 
-  // Close player logic:
   document.getElementById('close-player').addEventListener('click', () => {
     const videoPlayer = document.getElementById('video-player');
     const video = document.querySelector('#video-player iframe');
@@ -51,7 +45,6 @@ export function initVideoPlayer() {
     videoPlayer.style.display = 'none';
     video.src = '';
 
-    // Fade out background player video and pause it safely
     if (backgroundPlayerVideo) {
       gsap.to('#background-video-player', {
         opacity: 0,
@@ -64,7 +57,6 @@ export function initVideoPlayer() {
     }
   });
 
-  // Optional: Close player on Escape key
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
       const videoPlayer = document.getElementById('video-player');

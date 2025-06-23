@@ -1,6 +1,10 @@
 // js/interactions/thumbnails.js
 
+import { disableInteractions } from "./interactionState.js";
+import { enableInteractions } from "./interactionState.js";
+
 export function animateThumbnails() {
+  disableInteractions();
   gsap.to(".scroll-indicator", {
     opacity: 0,
     duration: 0,
@@ -86,4 +90,10 @@ export function animateThumbnails() {
     ease: "power3.inOut",
     delay: 5,
   });
+
+  setTimeout(()=>{
+    enableInteractions();
+  }, 5000);
+
+  return Promise.resolve();
 }

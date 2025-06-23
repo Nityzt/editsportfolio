@@ -1,24 +1,26 @@
 
 import { backgroundVideo } from '../core/constants.js';
+import { interactionReady } from './interactionState.js';
 
 export function initHoverThumbs() {
   const allVideoThumbs = document.querySelectorAll('.video-thumb1, .video-thumb2');
 
   allVideoThumbs.forEach(mainThumb => {
     mainThumb.addEventListener('mouseenter', () => {
+      if (!interactionReady) return;
       const innerThumb = mainThumb.querySelector('[data-video-background]');
       const videoSrc = innerThumb ? innerThumb.getAttribute('data-video-background') : null;
 
       if (videoSrc && backgroundVideo) {
         const sourceElement = backgroundVideo.querySelector('source');
         if (sourceElement) {
-          sourceElement.src = videoSrc;
+          sourceElement.src = videoSrc; 
           backgroundVideo.load();
           backgroundVideo.play();
         }
       }
 
-      // Get the inner `.thumbX` element and extract X
+      
       const thumbGroup = mainThumb.querySelector('[class^="thumb"]');
       const match = [...thumbGroup.classList].find(cls => /^thumb\d+$/.test(cls));
       const thumbNum = match?.replace('thumb', '') || '';
@@ -41,6 +43,7 @@ export function initHoverThumbs() {
     });
 
     mainThumb.addEventListener('mouseleave', () => {
+      if (!interactionReady) return;
       const thumbGroup = mainThumb.querySelector('[class^="thumb"]');
       const match = [...thumbGroup.classList].find(cls => /^thumb\d+$/.test(cls));
       const thumbNum = match?.replace('thumb', '') || '';
