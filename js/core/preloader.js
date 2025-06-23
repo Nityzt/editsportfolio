@@ -34,7 +34,7 @@ export function initPreloader() {
       }, {
         y: "0%",
         opacity: 1,
-        duration: 1.2,
+        duration: 1,
         onStart: () => {
           welcome.classList.add("visible");
           welcome.style.pointerEvents = "auto";
@@ -53,8 +53,8 @@ export function initPreloader() {
         gsap.to(welcome, {
           opacity: 0,
           y: '70%',
-          duration: 2,
-          delay: 0.1,
+          duration: 2.4,
+          delay: 0,
           ease: "power3.inOut",
           onComplete: () => {
             welcome.classList.remove('visible');

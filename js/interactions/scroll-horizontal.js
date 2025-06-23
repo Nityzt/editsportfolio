@@ -85,7 +85,7 @@ export function initHorizontalScroll() {
     if (!interactionReady) return;
     e.preventDefault();
 
-    const delta = e.deltaY * 2.3;
+    const delta = e.deltaY * 3;
     duration: 0.6;
     const targetScroll = Math.max(0, Math.min(getMaxScroll(), contentWrapper.scrollLeft + delta));
 
