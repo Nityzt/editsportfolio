@@ -33,7 +33,7 @@ export function initHorizontalScroll() {
   }
 
   function updateScrollbarPosition() {
-  const maxScroll = getMaxScroll();
+  //const maxScroll = getMaxScroll();
   const scrollPercentage = scrollPosition / maxScroll;
   const indicatorWidth = scrollIndicator.clientWidth;
   const totalVisibleWidth = contentWrapper.clientWidth * 0.8;

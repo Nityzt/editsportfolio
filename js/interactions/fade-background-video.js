@@ -1,8 +1,19 @@
 export function fadeBackgroundVideoIn() {
-  gsap.to("#background-videodefault", {
-    opacity: 0.2,
-    duration: 1.5,
+  const video = document.getElementById('background-videodefault');
+  if (!video) return;
+
+  video.pause();
+  video.currentTime = 0;
+
+  gsap.to(video, {
+    opacity: 0.1,
+    duration: 2,
     ease: "power3.in",
-    delay: 1.2, // No delay needed anymore, your new preloader is fast
+    delay: 0,
+    onStart: () => {
+      video.play().catch(err => {
+        console.warn('Background video failed to play:', err);
+      });
+    }
   });
 }

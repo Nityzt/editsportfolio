@@ -12,9 +12,11 @@
     <script type="module" src="js/main.js"></script>
 
     <style>
-        #preloader {
-            position: fixed;
-            width: 100vw;
+
+
+#preloader {
+    position: fixed;
+    width: 100vw;
     height: 100vh;
     background: #000;
     color: #fff;
@@ -23,14 +25,59 @@
     justify-content: center;
     align-items: center;
     z-index: 9999; 
+    transition: none;
+    transform: translateY(0);
+    }
     
-        }
-
-        * {
+    * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    }
+
+#welcome {
+  /* display: none; */
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: opacity 0.5s ease, transform ease;
+  transform: translateY(30%);
+  /* transform: 0.8s ease; */
 }
+
+#welcome.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.welcome-text {
+  text-align: center;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+#welcome.hide {
+    /* transform: translateY(30%); */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.1s ease;
+}
+
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 #background-video-player {
   position: fixed;
   top: 0;
@@ -245,11 +292,18 @@ body {
 <body>
 
     <div id="preloader">0%</div>
-    <video id="background-videodefault" autoplay loop muted >
+    <section id="welcome" class="welcome">
+  <div class="welcome-text">
+    <h1>Welcome to My Portfolio</h1>
+    <p>Scroll or click to explore</p>
+    <button id="enter-button">Enter</button>
+  </div>
+</section>
+    <video id="background-videodefault" loop muted preload= "auto">
         <source src= "previews/biggerpreviewedited.mp4" type="video/mp4">
     </video>
     
-    <div class="content-wrapper">
+    <div id="main-content" class="content-wrapper">
 
    
     <div class="content">

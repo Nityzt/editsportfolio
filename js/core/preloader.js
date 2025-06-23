@@ -1,33 +1,84 @@
 import { preloader } from './constants.js';
-import { animateThumbnails } from '../interactions/thumbnails.js';
 import { initVideoPlayer } from '../interactions/videoplayer.js';
+import { animateThumbnails } from '../interactions/thumbnails.js';
 
 export function initPreloader() {
-  // console.log("initPreloader() called");
   let progress = 0;
 
-  animateThumbnails();
- // console.log("animateThumbnails() called");
-
   const interval = setInterval(() => {
-  //  console.log("progress tick:", progress);
     if (progress < 100) {
       progress += 2;
       preloader.innerText = `${progress}%`;
     } else {
       clearInterval(interval);
 
-      console.log("✅ progress complete");
-        
-      gsap.to("#preloader", {
+      const welcome = document.querySelector('#welcome');
+      const enterBtn = document.getElementById('enter-button');
+
+      const tl = gsap.timeline({ defaults: { ease: "power3.inOut", duration: 1 } });
+
+      // Preloader exit
+      tl.to("#preloader", {
+        y: "30%",
         opacity: 0,
-        duration: 1,
+        delay:0.1,
         onComplete: () => {
-          console.log("preloader hidden");
-          preloader.style.display = 'none';
-          initVideoPlayer(); 
+          preloader.style.display = "none";
         }
       });
+
+      // Welcome enter
+      tl.fromTo(welcome, {
+        y: "-30%",
+        opacity: 0
+      }, {
+        y: "0%",
+        opacity: 1,
+        duration: 1.2,
+        onStart: () => {
+          welcome.classList.add("visible");
+          welcome.style.pointerEvents = "auto";
+        }
+      }, "<+0.1");
+
+      // Init video player
+      tl.call(() => initVideoPlayer());
+
+      // Define enter logic once
+      let hasEntered = false;
+      function enterSite() {
+        if (hasEntered) return;
+        hasEntered = true;
+
+        gsap.to(welcome, {
+          opacity: 0,
+          y: '70%',
+          duration: 2,
+          delay: 0.3,
+          ease: "power3.inOut",
+          onComplete: () => {
+            welcome.classList.remove('visible');
+            welcome.classList.add('hide');
+          }
+        });
+
+        animateThumbnails();
+
+        setTimeout(() => {
+          document.getElementById('main-content')?.scrollIntoView({ behavior: 'smooth' });
+        }, 600);
+      }
+
+      // Button click
+      if (enterBtn) {
+        enterBtn.addEventListener('click', enterSite);
+      }
+
+      // Scroll listener (fires once)
+      window.addEventListener('wheel', function scrollOnce() {
+        enterSite();
+        window.removeEventListener('wheel', scrollOnce);
+      }, { passive: true });
     }
   }, 20);
 }
