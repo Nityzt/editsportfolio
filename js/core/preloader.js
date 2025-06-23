@@ -54,7 +54,7 @@ export function initPreloader() {
           opacity: 0,
           y: '70%',
           duration: 2,
-          delay: 0.3,
+          delay: 0.1,
           ease: "power3.inOut",
           onComplete: () => {
             welcome.classList.remove('visible');

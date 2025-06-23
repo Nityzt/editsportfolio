@@ -99,8 +99,8 @@ body {
     height: 100%;
     justify-content: center;
     align-items: center;
-    overflow-x: auto;
-    overflow-y: hidden;
+    /* overflow-x: auto; */
+    overflow: hidden;
 }
 
 
@@ -125,10 +125,13 @@ body {
 
 .content-wrapper {
     /* position: relative; */
-    overflow-x: hidden;  /* Enable horizontal scrolling */
-    overflow-y: hidden; /* Disable vertical scrolling */
+    overflow: hidden;
     white-space: nowrap;
     transition: all 0.5 ease;
+    /* position: relative; */
+    scrollbar-width: auto;
+    height: 100vh;
+    cursor: grab;
     /* scroll-snap-type: x mandatory; */
 }
 
@@ -137,6 +140,21 @@ body {
     z-index: 1;
 }
  */
+#scroll-drag-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5;
+  cursor: grab;
+  background: transparent;
+}
+
+ .content-wrapper.dragging{
+    user-select: none;
+    cursor: grabbing;
+ }
 
 .content {
     
@@ -163,6 +181,7 @@ body {
     opacity: 0; /* Initially hidden */
     transition: opacity 0.6s ease; /* Fade in/out transition */
     /* width: calc(100% * (scrollPosition / maxScroll)); */
+    /* pointer-events: none; */
 }
 
 .content-wrapper:hover .scroll-indicator {
@@ -402,7 +421,7 @@ body {
 
 <div class="scroll-indicator"></div>
 </div>
-
+<!-- <div id="scroll-drag-layer"></div> -->
 </body>
 </html>
 
