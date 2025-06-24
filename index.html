@@ -102,6 +102,8 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+
+
 #background-video-player {
   position: fixed;
   top: 0;
@@ -181,32 +183,57 @@ body {
  }
 
 .content {
-    
-    display: flex;
-    flex-direction: row;
-    justify-content:center;
-    align-items: center;
-    min-height: 100vh;
-    min-width: 250vw;
-   
-    white-space: nowrap;
-    /* scroll-snap-type: x mandatory; */
-    /* scroll-snap-align: start; */
+  display: flex;
+  flex-direction: row; /* Keep horizontal layout */
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-width: 250vw;
+  white-space: nowrap;
 }
 
-.scroll-indicator {
-    position: absolute;
-    bottom: 20px; /* Adjust the position as needed */
-    height: 10px; /* Adjust height for visibility */
-    left: 160px;
-    background-color: rgba(184, 184, 184, 0.116); /* Subtle background color */
-    width: 50%;
-    border-radius: 10px; /* Rounded corners */
-    opacity: 0; /* Initially hidden */
-    transition: opacity 0.6s ease; /* Fade in/out transition */
-    /* width: calc(100% * (scrollPosition / maxScroll)); */
-    /* pointer-events: none; */
+/* Responsive: Mobile layout (no stacking, just smaller thumbs) */
+@media (max-width: 768px) {
+  .video-thumb1, .video-thumb2,
+  .thumb1, .thumb2, .thumb3, .thumb4,
+  .thumb5, .thumb6, .thumb7, .thumb8,
+  .thumb1-1, .thumb1-2, .thumb1-3, .thumb1-4,
+  .thumb2-1, .thumb2-2, .thumb2-3, .thumb2-4,
+  .thumb3-1, .thumb3-2, .thumb3-3, .thumb3-4,
+  .thumb4-1, .thumb4-2, .thumb4-3, .thumb4-4,
+  .thumb5-1, .thumb5-2, .thumb5-3, .thumb5-4,
+  .thumb6-1, .thumb6-2, .thumb6-3, .thumb6-4,
+  .thumb7-1, .thumb7-2, .thumb7-3, .thumb7-4,
+  .thumb8-1, .thumb8-2, .thumb8-3, .thumb8-4 {
+    min-width: 240px;
+    height: 100px;
+  }
+
+  .welcome-text {
+    padding: 20px;
+  }
+
+  #enter-button {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.5rem;
+  }
+
+  .video-thumb1 img,
+  .video-thumb2 img {
+    transform: none !important; 
+  }
+
+
 }
+
+
+.thumb-container {
+  margin: 0 12px;
+  flex-shrink: 0;
+}
+
+
 
 .content-wrapper:hover .scroll-indicator {
     opacity: 1; /* Show scrollbar on hover */
@@ -218,10 +245,10 @@ body {
     /* align-items: center; */
     /* scale: 100%; */
     transform: translateY(-1000px);
-    will-change: transform, opacity, filter;
+    /* will-change: transform, opacity, filter; */
     min-width: 320px;
     height: 140px;
-    margin: 0px 0vw;
+    margin: 0;
     background: #fff;
     transition: filter 0.6s ease; 
      filter: grayscale(100%); 
@@ -242,7 +269,7 @@ body {
     will-change: transform, opacity, filter;
     min-width: 320px;
     height: 140px;
-    margin: 0px 0vw;
+    margin: 0;
     background: #000000;
     transition: filter 0.6s ease; 
      filter: grayscale(100%); 
@@ -260,11 +287,15 @@ body {
   display: inline-block;
   min-width: 320px;
   height: 140px;
-  margin: 0 1vw;
-  
+  margin: 0 clamp(6px, 1vw, 12px);
+  flex-shrink: 0;
+  backface-visibility: hidden;
+  perspective: 1000;
+  transform-style: preserve-3d;
   border: none;
   box-sizing: border-box;
 }
+
 
 /* .video-thumb1::after, .video-thumb2::after {
   content: "";
@@ -377,16 +408,18 @@ body {
    
     <div class="content">
 
+  <div class="thumb-container">
   <div class="video-thumb1">
     <div class="thumb1" data-video-background="previews/vagancy.mp4" data-video="videos/fiery video.mp4" >
         <img src="thumbs/video4thumb.jpg" alt="" loading="lazy"></div>
-
     <div class="thumb1-1"><img src="thumbs/thumb4-1.JPG" alt=""></div>
     <div class="thumb1-2"><img src="thumbs/thumb4-2.JPG" alt=""></div>
     <div class="thumb1-3"><img src="thumbs/thumb4-3.JPG" alt=""></div>
     <div class="thumb1-4"><img src="thumbs/thumb4-4.JPG" alt=""></div>
   </div>
-            
+  </div>
+        
+  <div class="thumb-container">
   <div class="video-thumb2">
     <div class="thumb2" data-video-background="previews/dolzeur preview edited.mp4" data-video="KGDLrg_T4hs"> 
         <img src="thumbs/video2thumb.webp" alt="" loading="lazy"></div>
@@ -394,19 +427,20 @@ body {
         <div class="thumb2-2"><img src="thumbs/thumb2-2.JPG" alt=""></div>
         <div class="thumb2-3"><img src="thumbs/thumb2-3.JPG" alt=""></div>
         <div class="thumb2-4"><img src="thumbs/thumb2-4.JPG" alt=""></div>
-  </div>
-            
+  </div></div>
+
+  <div class="thumb-container">         
   <div class="video-thumb1">
     <div class="thumb3" data-video-background="previews/peaked.mp4"data-video="videos/peaked.mp4">
         <img src="thumbs/video3thumb.webp" alt="" loading="lazy">
         </div>
-
     <div class="thumb3-1"><img src="thumbs/thumb3-1.JPG" alt=""></div>
     <div class="thumb3-2"><img src="thumbs/thumb3-2.JPG" alt=""></div>
     <div class="thumb3-3"><img src="thumbs/thumb3-3.JPG" alt=""></div>
     <div class="thumb3-4"><img src="thumbs/thumb3-4.JPG" alt=""></div>
-  </div>
+  </div></div>
 
+  <div class="thumb-container">
   <div class="video-thumb2">
     <div class="thumb4" data-video-background="previews/fiery.mp4"data-video="ph-GOALuNWU">
         <img src="thumbs/video1thumb.webp" alt="" loading="lazy">
@@ -415,8 +449,9 @@ body {
         <div class="thumb4-2"><img src="thumbs/thumb1-2.JPG" alt=""></div>
         <div class="thumb4-3"><img src="thumbs/thumb1-3.JPG" alt=""></div>
         <div class="thumb4-4"><img src="thumbs/thumb1-4.JPG" alt=""></div>
-  </div>
+  </div></div>
 
+  <div class="thumb-container">
   <div class="video-thumb1">
     <div class="thumb5" data-video-background="previews/hyde.mp4" data-video="video5.mp4">
         <img src="thumbs/video5thumb.jpg" alt="" loading="lazy">
@@ -427,7 +462,9 @@ body {
     <div class="thumb5-3"><img src="thumbs/thumb5-3.JPG" alt=""></div>
     <div class="thumb5-4"><img src="thumbs/thumb5-4.JPG" alt=""></div>
   </div>
+  </div>
         
+  <div class="thumb-container">
   <div class="video-thumb2">
     <div class="thumb6" data-video-background="previews/nyx.mp4" data-video="KGDLrg_T4hs">
         <img src="thumbs/thumb6.JPG" alt="" loading="lazy">
@@ -436,8 +473,9 @@ body {
         <div class="thumb6-2"><img src="thumbs/thumb6-2.JPG" alt=""></div>
         <div class="thumb6-3"><img src="thumbs/thumb6-3.JPG" alt=""></div>
         <div class="thumb6-4"><img src="thumbs/thumb6-4.JPG" alt=""></div>
-  </div>
+  </div></div>
   
+  <div class="thumb-container">
   <div class="video-thumb1">
     <div class="thumb7" data-video-background="previews/mahshallah.mp4" data-video="video6.mp4">
         <img src="thumbs/video7thumb.JPG" alt="" loading="lazy">
@@ -447,7 +485,9 @@ body {
     <div class="thumb7-3"><img src="thumbs/thumb7-3.JPG" alt=""></div>
     <div class="thumb7-4"><img src="thumbs/thumb7-4.JPG" alt=""></div>
   </div>
+  </div>
 
+  <div class="thumb-container">
   <div class="video-thumb2">
     <div class="thumb8" data-video-background="previews/nima.mp4" data-video="video4.mp4">
         <img src="thumbs/video8thumb.JPG" alt="" loading="lazy">
@@ -456,7 +496,7 @@ body {
         <div class="thumb8-2"><img src="thumbs/thumb8-2.JPG" alt=""></div>
         <div class="thumb8-3"><img src="thumbs/thumb8-3.JPG" alt=""></div>
         <div class="thumb8-4"><img src="thumbs/thumb8-4.JPG" alt=""></div>
-  </div>
+  </div></div>
             
    
 </div>

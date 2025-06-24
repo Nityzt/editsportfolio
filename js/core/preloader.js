@@ -21,8 +21,8 @@ export function initPreloader() {
       tl.to("#preloader", {
         y: "20%",
         opacity: 0,
-        delay:0.1,
-        duration: 1,
+        // delay:0.1,
+        duration: 2,
         onComplete: () => {
           preloader.style.display = "none";
         }
@@ -35,7 +35,7 @@ export function initPreloader() {
       }, {
         y: "0%",
         opacity: 1,
-        duration: 1,
+        duration: 2,
         // delay:0.2,
         onStart: () => {
           welcome.classList.add("visible");

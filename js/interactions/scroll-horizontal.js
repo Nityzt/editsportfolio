@@ -81,7 +81,7 @@ export function initHorizontalScroll() {
     if (!interactionReady) return;
     e.preventDefault();
 
-    const delta = e.deltaY * 3;
+    const delta = e.deltaY * 4;
     duration: 0.6;
     const targetScroll = Math.max(0, Math.min(getMaxScroll(), contentWrapper.scrollLeft + delta));
 
@@ -123,3 +123,19 @@ export function initHorizontalScroll() {
   window.addEventListener('resize', updateUI);
   contentWrapper.addEventListener('scroll', updateUI);
 }
+
+let touchStartX = 0;
+let touchEndX = 0;
+
+contentWrapper.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+}, { passive: true });
+
+contentWrapper.addEventListener('touchmove', e => {
+  touchEndX = e.touches[0].clientX;
+  const deltaX = touchStartX - touchEndX;
+  scrollPosition += deltaX * 2; // adjust speed
+  scrollPosition = Math.max(0, Math.min(scrollPosition, contentWrapper.scrollWidth - window.innerWidth));
+  gsap.set(contentWrapper, { scrollTo: { x: scrollPosition } });
+  touchStartX = touchEndX;
+});
