@@ -52,7 +52,7 @@ function animateThumb(mainThumb, show = true) {
 
   gsap.killTweensOf(elements);
 
-  const yValues = [-340, -170, 170, 340];
+  const yValues = [-34, -17, 34, 17];
 
   elements.forEach((el, i) => {
     gsap.to(el, {

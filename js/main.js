@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // initVideoPlayer();
  // fadeBackgroundVideoIn();
   initHorizontalScroll();
-  initIdleAnimation();
+  // initIdleAnimation();
 
   const enterBtn = document.getElementById('enter-button');
   if (enterBtn) {

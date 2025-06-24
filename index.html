@@ -231,6 +231,7 @@ body {
     overflow: visible;
     display: inline-block;
 
+    
 }
 
 .video-thumb2 {
@@ -251,7 +252,29 @@ body {
     overflow: visible;
     display: inline-block;
 
+     
 }
+
+.video-thumb1, .video-thumb2 {
+  position: relative;
+  display: inline-block;
+  min-width: 320px;
+  height: 140px;
+  margin: 0 1vw;
+  
+  border: none;
+  box-sizing: border-box;
+}
+
+/* .video-thumb1::after, .video-thumb2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: #fff;
+} */
 
 .video-thumb1:hover, .video-thumb2:hover {
     filter: grayscale(0%); 
@@ -260,11 +283,14 @@ body {
 }
 
 .video-thumb1 img, .video-thumb2 img {
-    width: 100%;         
-    height: 100%;         
-    object-fit: contain ;      
-    
-
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.05); /* slight zoom for inner clip */
+  border: 4px solid white; /* inner white border */
+  box-sizing: border-box;
+  margin: auto;
 }
 .thumb1, .thumb2, .thumb3, .thumb4, .thumb5, .thumb6, .thumb7, .thumb8{
     min-width: 320px;

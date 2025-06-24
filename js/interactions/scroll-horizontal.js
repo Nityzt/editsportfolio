@@ -13,7 +13,6 @@ export function initHorizontalScroll() {
   let isMomentumRunning = false;
   let currentTween = null;
 
-  // ✅ DRAGGING
   contentWrapper.addEventListener('mousedown', (e) => {
     if (!interactionReady) return;
     isDragging = true;
@@ -36,7 +35,6 @@ export function initHorizontalScroll() {
     const newScroll = scrollStart - dx;
     contentWrapper.scrollLeft = Math.max(0, Math.min(getMaxScroll(), newScroll));
 
-    // compute velocity
     const dt = Date.now() - lastTimestamp || 16;
     const dxNow = e.clientX - lastClientX;
     scrollVelocity = -dxNow / dt * 16.67;
@@ -57,7 +55,6 @@ export function initHorizontalScroll() {
     }
   });
 
-  // ✅ MOMENTUM
   function startMomentum() {
     if (isMomentumRunning) return;
     isMomentumRunning = true;
@@ -80,7 +77,6 @@ export function initHorizontalScroll() {
     requestAnimationFrame(step);
   }
 
-  // ✅ WHEEL: Restore smooth GSAP scroll
   window.addEventListener('wheel', (e) => {
     if (!interactionReady) return;
     e.preventDefault();
@@ -99,7 +95,7 @@ export function initHorizontalScroll() {
     });
   }, { passive: false });
 
-  // ✅ UPDATE
+  
   function updateUI() {
     const maxScroll = getMaxScroll();
     const scrollLeft = contentWrapper.scrollLeft;

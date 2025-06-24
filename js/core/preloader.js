@@ -19,9 +19,10 @@ export function initPreloader() {
 
       // Preloader exit
       tl.to("#preloader", {
-        y: "30%",
+        y: "20%",
         opacity: 0,
         delay:0.1,
+        duration: 1,
         onComplete: () => {
           preloader.style.display = "none";
         }
@@ -35,6 +36,7 @@ export function initPreloader() {
         y: "0%",
         opacity: 1,
         duration: 1,
+        // delay:0.2,
         onStart: () => {
           welcome.classList.add("visible");
           welcome.style.pointerEvents = "auto";
@@ -52,10 +54,10 @@ export function initPreloader() {
 
         gsap.to(welcome, {
           opacity: 0,
-          y: '70%',
-          duration: 2.4,
+          y: '80%',
+          duration: 2.6,
           delay: 0,
-          ease: "power3.inOut",
+          ease: "power4.inOut",
           onComplete: () => {
             welcome.classList.remove('visible');
             welcome.classList.add('hide');
