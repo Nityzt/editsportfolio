@@ -118,7 +118,7 @@
 }
 
 #video-blocker {
-  display: auto; /* default: don't block */
+  display: none; /* default: don't block */
   
 }
 
@@ -133,7 +133,7 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        z-index: 998; /* Lower than welcome screen (9999), higher than background video (-1 or 100) */
+        z-index: 101; /* Lower than welcome screen (9999), higher than background video (-1 or 100) */
         background: transparent; /* Keep it transparent */
         pointer-events: auto; /* It *should* block events by default */
         touch-action: none; /* Prevent any touch actions from passing through */
@@ -577,7 +577,7 @@ body {
     <button id="enter-button">Enter</button>
   </div>
 </section>
-    <video id="background-videodefault" loop muted preload= "auto">
+    <video id="background-videodefault" loop muted preload= "auto" playsinline disablepictureinpicture>
         <source src= "previews/biggerpreviewedited.mp4" type="video/mp4">
     </video>
     <!-- <div id="video-blocker"></div> -->
@@ -684,9 +684,9 @@ body {
     <iframe src="" frameborder="0" allowfullscreen></iframe>
 </div>
 
-<video id="background-video-player" muted loop>
+<!-- <video id="background-video-player" muted loop>
       <source src="previews/player-background.mp4" type="video/mp4" />
-    </video>
+    </video> -->
 
 <div class="scroll-indicator"></div>
 </div>
