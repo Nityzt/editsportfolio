@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>My Portfolio</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
@@ -117,6 +117,30 @@
   filter: grayscale(70%);
 }
 
+#video-blocker {
+  display: auto; /* default: don't block */
+  
+}
+
+@media (hover: none) and (pointer: coarse) {
+  #background-video-player{
+    pointer-events: none;
+    touch-action: none;
+  }
+   #video-blocker {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 998; /* Lower than welcome screen (9999), higher than background video (-1 or 100) */
+        background: transparent; /* Keep it transparent */
+        pointer-events: auto; /* It *should* block events by default */
+        touch-action: none; /* Prevent any touch actions from passing through */
+        display: block; /* Ensure it's always block on mobile to cover */
+    }
+}
+
 body {
     scroll-behavior: smooth;
     background-color: #000;
@@ -221,7 +245,7 @@ body {
 
   .video-thumb1 img,
   .video-thumb2 img {
-    transform: none !important; 
+    transform: none ;
   }
 
 
@@ -556,6 +580,7 @@ body {
     <video id="background-videodefault" loop muted preload= "auto">
         <source src= "previews/biggerpreviewedited.mp4" type="video/mp4">
     </video>
+    <!-- <div id="video-blocker"></div> -->
     
     <div id="main-content" class="content-wrapper">
 
