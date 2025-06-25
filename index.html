@@ -227,6 +227,160 @@ body {
 
 }
 
+/* Enhanced mobile responsiveness - Add these styles to your existing CSS */
+
+/* Improved mobile viewport handling */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .content-wrapper {
+    height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+
+  .content-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+
+  /* Improved touch targets */
+  .video-thumb1, .video-thumb2 {
+    min-width: 280px;
+    height: 120px;
+    margin: 0 8px;
+    touch-action: pan-x; /* Only allow horizontal panning */
+  }
+
+  /* Better mobile hover states */
+  .video-thumb1:active, .video-thumb2:active {
+    filter: grayscale(0%) !important;
+    transform: scale(0.98);
+    transition: all 0.1s ease;
+  }
+
+  /* Improved mobile welcome screen */
+  .welcome-text {
+    padding: 20px;
+    max-width: 90vw;
+  }
+
+  #welcome h1 {
+    font-size: clamp(2rem, 8vw, 3rem);
+    line-height: 1.2;
+  }
+
+  #welcome p {
+    font-size: clamp(1rem, 4vw, 1.2rem);
+  }
+
+  #enter-button {
+    font-size: 1rem;
+    padding: 12px 24px;
+    min-height: 44px; /* iOS recommended touch target */
+    min-width: 44px;
+  }
+
+  /* Mobile-optimized sub-thumbnails */
+  .thumb1-1, .thumb1-2, .thumb1-3, .thumb1-4,
+  .thumb2-1, .thumb2-2, .thumb2-3, .thumb2-4,
+  .thumb3-1, .thumb3-2, .thumb3-3, .thumb3-4,
+  .thumb4-1, .thumb4-2, .thumb4-3, .thumb4-4,
+  .thumb5-1, .thumb5-2, .thumb5-3, .thumb5-4,
+  .thumb6-1, .thumb6-2, .thumb6-3, .thumb6-4,
+  .thumb7-1, .thumb7-2, .thumb7-3, .thumb7-4,
+  .thumb8-1, .thumb8-2, .thumb8-3, .thumb8-4 {
+    min-width: 260px;
+    height: 110px;
+    margin: 8px;
+  }
+
+  /* Mobile video player improvements */
+  #video-player {
+    padding: 10px;
+  }
+
+  #video-player iframe {
+    width: 95vw;
+    height: 56.25vw; /* 16:9 aspect ratio */
+    max-width: none;
+    max-height: 80vh;
+  }
+
+  #close-player {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1001;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Tablet landscape optimizations */
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
+  .video-thumb1, .video-thumb2 {
+    min-width: 300px;
+    height: 130px;
+  }
+
+  .content {
+    min-width: 200vw; /* Reduce for tablets */
+  }
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .video-thumb1 img, .video-thumb2 img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Improved scroll indicator for mobile */
+@media (max-width: 768px) {
+  .scroll-indicator {
+    bottom: 20px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+  }
+}
+
+/* Performance optimizations */
+.video-thumb1, .video-thumb2 {
+  will-change: transform, opacity;
+  transform: translateZ(0); /* Force hardware acceleration */
+  backface-visibility: hidden;
+}
+
+.video-thumb1 img, .video-thumb2 img {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
 
 .thumb-container {
   margin: 0 12px;
