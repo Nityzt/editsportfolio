@@ -174,23 +174,27 @@ export function initHorizontalScroll() {
     requestAnimationFrame(step);
   }
 
-  // Mouse wheel (desktop only)
   window.addEventListener('wheel', (e) => {
-    if (!interactionReady || isTouchDevice) return;
-    e.preventDefault();
+  if (!interactionReady || isTouchDevice) return;
 
-    const delta = e.deltaY * 4;
-    const targetScroll = Math.max(0, Math.min(getMaxScroll(), contentWrapper.scrollLeft + delta));
+  const isVerticalScroll = Math.abs(e.deltaY) > Math.abs(e.deltaX);
+  const delta = isVerticalScroll ? e.deltaY : e.deltaX;
 
-    if (currentTween) currentTween.kill();
+  if (Math.abs(delta) < 1) return; // Ignore tiny scrolls (avoid noise)
 
-    currentTween = gsap.to(contentWrapper, {
-      scrollTo: { x: targetScroll },
-      duration: 0.6,
-      ease: 'power2.out',
-      onUpdate: updateUI,
-    });
-  }, { passive: false });
+  e.preventDefault();
+
+  const targetScroll = Math.max(0, Math.min(getMaxScroll(), contentWrapper.scrollLeft + delta * 2));
+
+  if (currentTween) currentTween.kill();
+
+  currentTween = gsap.to(contentWrapper, {
+    scrollTo: { x: targetScroll },
+    duration: 0.6,
+    ease: 'power2.out',
+    onUpdate: updateUI,
+  });
+}, { passive: false });
 
   function updateUI() {
     const maxScroll = getMaxScroll();
@@ -200,13 +204,13 @@ export function initHorizontalScroll() {
     const scrollPercentage = scrollLeft / maxScroll;
 
     // Smooth scale and opacity changes
-    gsap.to('.video-thumb1, .video-thumb2', {
-      scale: gsap.utils.mapRange(0, 1, 0.95, 1.05, Math.min(scrollPercentage, 1)),
-      opacity: gsap.utils.mapRange(0, 1, 0.8, 1, Math.min(scrollPercentage, 1)),
-      duration: 0.25,
-      ease: 'power2.out',
-      overwrite: 'auto',
-    });
+    // gsap.to('.video-thumb1, .video-thumb2', {
+    //   scale: gsap.utils.mapRange(0, 1, 0.95, 1.05, Math.min(scrollPercentage, 1)),
+    //   opacity: gsap.utils.mapRange(0, 1, 0.8, 1, Math.min(scrollPercentage, 1)),
+    //   duration: 0.25,
+    //   ease: 'power2.out',
+    //   overwrite: 'auto',
+    // });
 
     // Update scroll indicator
     if (scrollIndicator) {
