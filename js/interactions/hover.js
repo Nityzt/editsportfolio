@@ -31,6 +31,8 @@ export function initHoverThumbs() {
         }
       }
 
+
+
       animateThumb(mainThumb, true);
       // scrollThumbToCenter(mainThumb);
     });
@@ -53,6 +55,10 @@ function animateThumb(mainThumb, show = true) {
   const thumbNum = match?.replace('thumb', '') || '';
   const thumbPrefix = `.thumb${thumbNum}-`;
 
+  // gsap.to(()=>{'mainThumb',{
+  //   scale: 1.05,
+  // }
+  // })
   const elements = mainThumb.querySelectorAll(
     `${thumbPrefix}1, ${thumbPrefix}2, ${thumbPrefix}3, ${thumbPrefix}4`
   );

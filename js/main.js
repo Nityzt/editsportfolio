@@ -5,14 +5,21 @@ import { fadeBackgroundVideoIn } from './interactions/fade-background-video.js';
 import { initHorizontalScroll } from './interactions/scroll-horizontal.js';
 import { initIdleAnimation } from './interactions/idle-animation.js';
 import { animateThumbnails } from './interactions/thumbnails.js';
+// import gsap from 'gsap';
+// import ScrollTrigger from 'gsap/ScrollTrigger';
+// import ScrollToPlugin from 'gsap/ScrollToPlugin';
+// import SplitText from 'gsap/SplitText';
 
+// // Register plugins
+// gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, SplitText);
+const welcome = document.getElementById('welcome');
 let hasEntered = false;
 
 function enterSite() {
   if (hasEntered) return;
   hasEntered = true;
 
-  const welcome = document.getElementById('welcome');
+  
   if(!welcome) return;
 
   console.log('Removing .visible and adding .hide');
@@ -39,8 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // initIdleAnimation();
 
   const enterBtn = document.getElementById('enter-button');
-  if (enterBtn) {
-    enterBtn.addEventListener('click', enterSite);
+  if (welcome) {
+    welcome.addEventListener('click', enterSite);
   }
 
   window.addEventListener('wheel', () => {

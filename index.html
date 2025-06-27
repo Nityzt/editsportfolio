@@ -8,6 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollToPlugin.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/SplitText.min.js" defer></script>
 
     <script type="module" src="js/main.js"></script>
 
@@ -52,6 +53,21 @@
   /* transition: opacity 0.6s ease, transform 0.6s ease; */
 }
 
+#welcome-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 0;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  opacity: 0.1; /* Optional: control visibility */
+  pointer-events: none;
+}
+
 #welcome.visible {
   opacity: 1;
   pointer-events: auto;
@@ -71,9 +87,21 @@
   font-size: 2.4rem;
   margin-bottom: 1rem;
   letter-spacing: 1px;
+  transition: all 0.5s ease;
 }
 
+/* #welcome h1:hover{
+letter-spacing: 2px;
+transition: all 0.5s ease;
+} */
+
 #welcome p {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  margin-bottom: 2rem;
+}
+
+#welcome h7 {
   font-size: 1.2rem;
   opacity: 0.8;
   margin-bottom: 2rem;
@@ -87,20 +115,21 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  /* transition: all 0.3s ease; */
+  transition: all 0.3s ease;
+  scale:1;
 }
 
-/* #enter-button:hover {
-  background: black;
-  color: white;
-  border: 1px solid white;
-  
-} */
+#enter-button:hover {
+  /* background: black; */
+  /* color: white; */
+  /* border: 1px solid white; */
+  scale:1.5;
+}
 
-@keyframes fadeInUp {
+/* @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
-}
+} */
 
 
 
@@ -509,10 +538,16 @@ body {
 } */
 
 .video-thumb1:hover, .video-thumb2:hover {
-    filter: grayscale(0%); 
-   
+    filter: grayscale(0%);   
     
 }
+
+/* .video-thumb1 img:hover, .video-thumb2 img:hover {
+      transform: scale(1.05);
+    transition: transform 0.3s ease; 
+} */
+
+
 
 .video-thumb1 img, .video-thumb2 img {
   width: 100%;
@@ -524,6 +559,8 @@ body {
   box-sizing: border-box;
   margin: auto;
 }
+
+
 .thumb1, .thumb2, .thumb3, .thumb4, .thumb5, .thumb6, .thumb7, .thumb8{
     min-width: 320px;
     height: 140px;
@@ -601,12 +638,16 @@ height: clamp(100px, 18vw, 140px);
 
     <div id="preloader">0%</div>
     <section id="welcome" class="welcome">
+      <video autoplay muted loop playsinline id="welcome-video">
+    <source src="/videos/welcome.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
   <div class="welcome-text">
     <h1>Welcome to My Portfolio</h1>
+    <h7>[WIP]</h7>
+    <p>Scroll or click anywhere to explore</p>
     
-    <p>Scroll or click to explore</p>
-    <p>[WIP]</p>
-    <button id="enter-button">Enter</button>
+    <!-- <button id="enter-button" class="enter-button">Enter</button> -->
   </div>
 </section>
     <video id="background-videodefault" loop muted preload= "auto" playsinline disablepictureinpicture>
