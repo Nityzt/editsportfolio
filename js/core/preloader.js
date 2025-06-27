@@ -131,7 +131,8 @@ if (welcomeVideo) {
       },{
         opacity:0,
         y:-40,
-        delay:0.7,
+        delay:0,
+        duration:1.5,
         ease: 'Bounce.Out'
 
       },  "<+0.1");
