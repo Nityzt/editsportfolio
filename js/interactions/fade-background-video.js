@@ -7,9 +7,9 @@ export function fadeBackgroundVideoIn() {
 
   gsap.to(video, {
     opacity: 0.1,
-    duration: 2,
+    duration: 3,
     ease: "power3.in",
-    delay: 0,
+    delay: 0.5,
     onStart: () => {
       video.play().catch(err => {
         console.warn('Background video failed to play:', err);
