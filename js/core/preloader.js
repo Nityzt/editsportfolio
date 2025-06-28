@@ -75,7 +75,7 @@ if (welcomeVideo) {
       },{
         opacity:1,
         y:20,
-        delay:0.5,
+        delay:0,
         ease: 'Bounce.Out'
 
       },  "<+0.1");
@@ -107,9 +107,6 @@ if (welcomeVideo) {
         hasEntered = true;
 
         const t2 = gsap.timeline({ defaults: { ease: "power3.inOut", } });
-
-        
-
         t2.fromTo("#welcome p",{
         
         opacity:1,

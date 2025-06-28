@@ -11,7 +11,7 @@ import { animateThumbnails } from './interactions/thumbnails.js';
 // import SplitText from 'gsap/SplitText';
 
 // // Register plugins
-// gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, SplitText);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, SplitText);
 const welcome = document.getElementById('welcome');
 let hasEntered = false;
 
