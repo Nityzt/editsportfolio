@@ -9,13 +9,14 @@ export function initPreloader() {
 
   const interval = setInterval(() => {
     if (progress < 100) {
-      progress += 2;
+      progress += 4;
+      
       preloader.innerText = `${progress}%`;
     } else {
       clearInterval(interval);
 
       const welcome = document.querySelector('#welcome');
-      const enterBtn = document.getElementById('enter-button');
+      // const enterBtn = document.getElementById('enter-button');
 
       const tl = gsap.timeline({ defaults: { ease: "power3.inOut", duration: 1 } });
 
@@ -54,46 +55,46 @@ if (welcomeVideo) {
         }
       }, "<+0.1");
 
-      tl.fromTo("#welcome h7",{
+      tl.fromTo("#welcome h2",{
         opacity:0,
-        y:-40,
+        y:10,
         delay:0,
         
       },{
         opacity:1,
-        y:0,
-        delay:0.8,
+        // y:30,
+        delay:0.5,
         ease: 'Bounce.Out'
 
       },  "<+0.1");
 
       tl.fromTo("#welcome p",{
         opacity:0,
-        y:50,
+        y:30,
         delay:0,
         
       },{
         opacity:1,
-        y:20,
-        delay:0,
+        y:10,
+        delay:0.1,
         ease: 'Bounce.Out'
 
       },  "<+0.1");
 
       
 
-      tl.fromTo("#enter-button",{
-        opacity:0,
-        y:0,
-        delay:0,
+      // tl.fromTo("#enter-button",{
+      //   opacity:0,
+      //   y:0,
+      //   delay:0,
         
-      },{
-        opacity:1,
-        y:30,
-        delay:0.2,
-        ease: 'Bounce3.Out'
+      // },{
+      //   opacity:1,
+      //   y:30,
+      //   delay:0.2,
+      //   ease: 'Bounce3.Out'
 
-      },  "<+0.1");
+      // },  "<+0.1");
 
     
 
@@ -107,11 +108,7 @@ if (welcomeVideo) {
         hasEntered = true;
 
         const t2 = gsap.timeline({ defaults: { ease: "power3.inOut", } });
-        t2.fromTo("#welcome p",{
-        
-        opacity:1,
-        y:20,
-      },{
+        t2.to("#welcome p",{
         opacity:0,
         y:50,
         delay:0,
@@ -120,31 +117,26 @@ if (welcomeVideo) {
 
       },  );
 
-      tl.fromTo("#welcome h7",{
-        delay:0,
-        opacity:1,
-        y:0,
-        
-      },{
+      tl.to("#welcome h2",{
         opacity:0,
-        y:-40,
+        y:40,
         delay:0,
-        duration:1.5,
+        duration:1,
         ease: 'Bounce.Out'
 
       },  "<+0.1");
 
-        t2.to(welcome, {
+      tl.to(welcome, {
           opacity: 0,
           y: '60%',
-          duration: 1.5,
+          duration: 2,
           delay: 0,
           ease: "power3.inOut",
           onComplete: () => {
             welcome.classList.remove('visible');
             welcome.classList.add('hide');
           }
-        });
+        }, "<+0.1");
 
         animateThumbnails();
 
