@@ -32,7 +32,7 @@ export function animateThumbnails() {
   gsap.to(".video-thumb1", {
     y: 0,
     margin: 0,
-    duration: 3,
+    duration: 2.5,
     ease: "power3.inOut",
     stagger: 0.15,
     delay: 0.1,
@@ -57,7 +57,7 @@ export function animateThumbnails() {
 
   gsap.to(".video-thumb1", {
     margin: '2.5vw',
-    x: -500,
+    x: '-27.2vw',
     duration: 2,
     ease: "power3.inOut",
     delay: 2,
