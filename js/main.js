@@ -5,33 +5,23 @@ import { fadeBackgroundVideoIn } from './interactions/fade-background-video.js';
 import { initHorizontalScroll } from './interactions/scroll-horizontal.js';
 import { initIdleAnimation } from './interactions/idle-animation.js';
 import { animateThumbnails } from './interactions/thumbnails.js';
-// import gsap from 'gsap';
-// import ScrollTrigger from 'gsap/ScrollTrigger';
-// import ScrollToPlugin from 'gsap/ScrollToPlugin';
-// import SplitText from 'gsap/SplitText';
+import { Cursor } from './core/cursor.js';
 
-// // Register plugins
 
-gsap.set('.cursor-circle', { xPercent: -50, yPercent: -50 });
-
-document.addEventListener('mousemove', (e) => {
-  gsap.to('.cursor-circle', {
-    duration: 0.2,
-    x: e.clientX,
-    y: e.clientY,
-    ease: "power2.out"
-  });
-});
+Cursor();
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, SplitText);
+
 const welcome = document.getElementById('welcome');
+
 let hasEntered = false;
 
 function enterSite() {
+
   if (hasEntered) return;
+
   hasEntered = true;
 
-  
   if(!welcome) return;
 
   console.log('Removing .visible and adding .hide');
@@ -52,10 +42,7 @@ function enterSite() {
 document.addEventListener('DOMContentLoaded', () => {
   initPreloader();
   initHoverThumbs();
-  // initVideoPlayer();
- // fadeBackgroundVideoIn();
   initHorizontalScroll();
-  // initIdleAnimation();
 
   const enterBtn = document.getElementById('enter-button');
   if (welcome) {
