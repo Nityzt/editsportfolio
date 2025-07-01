@@ -11,6 +11,18 @@ import { animateThumbnails } from './interactions/thumbnails.js';
 // import SplitText from 'gsap/SplitText';
 
 // // Register plugins
+
+gsap.set('.cursor-circle', { xPercent: -50, yPercent: -50 });
+
+document.addEventListener('mousemove', (e) => {
+  gsap.to('.cursor-circle', {
+    duration: 0.2,
+    x: e.clientX,
+    y: e.clientY,
+    ease: "power2.out"
+  });
+});
+
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, SplitText);
 const welcome = document.getElementById('welcome');
 let hasEntered = false;

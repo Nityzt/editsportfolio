@@ -36,6 +36,20 @@
     box-sizing: border-box;
     }
 
+    .cursor-circle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 15px;            /* Size of the circle */
+  height: 15px;
+  border-radius: 50%;
+  background-color: rgba(255, 217, 0);  /* White with some transparency */
+  pointer-events: none;   /* So it doesn't block clicks */
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.05s linear;
+}
+
 #welcome {
   position: fixed;
   top: 0; left: 0;
@@ -89,11 +103,6 @@
   letter-spacing: 1px;
   transition: all 0.5s ease;
 }
-
-/* #welcome h1:hover{
-letter-spacing: 2px;
-transition: all 0.5s ease;
-} */
 
 #welcome p {
   font-size: 1.2rem;
@@ -637,11 +646,13 @@ height: clamp(100px, 18vw, 140px);
 <body>
 
     <div id="preloader">0%</div>
+    <div class="cursor-circle"></div>
     <section id="welcome" class="welcome">
       <video autoplay muted loop playsinline id="welcome-video">
     <source src="/videos/welcome.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
+    
   <div class="welcome-text">
     <h1>Welcome to My Portfolio</h1>
     <h2>[WIP]</h2>
