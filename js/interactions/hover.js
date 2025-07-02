@@ -31,8 +31,6 @@ export function initHoverThumbs() {
         }
       }
 
-
-
       animateThumb(mainThumb, true);
       // scrollThumbToCenter(mainThumb);
     });
