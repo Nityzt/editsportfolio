@@ -1,0 +1,440 @@
+#preloader {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    color: #fff;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; 
+    transition: none;
+    transform: translateY(0);
+    }
+    
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+    .cursor-circle {
+      transform-origin: center center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity :0;
+  width: 15px;            /* Size of the circle */
+  height: 15px;
+  border-radius: 50%;
+  background-color: rgb(105, 255, 59);  /* White with some transparency */
+  pointer-events: none;   /* So it doesn't block clicks */
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.05s linear;
+}
+
+
+
+#welcome {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(50%);
+  /* transition: opacity 0.6s ease, transform 0.6s ease; */
+}
+
+#welcome-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 0;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  opacity: 0.1; /* Optional: control visibility */
+  pointer-events: none;
+}
+
+#welcome.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.welcome-text {
+  text-align: center;
+  /* animation: fadeInUp 0.6s ease forwards; */
+  max-width: 600px;
+  padding: 40px;
+  border-radius: 12px;
+  
+}
+
+#welcome h1 {
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+  transition: all 0.5s ease;
+}
+
+#welcome p {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  margin-bottom: 2rem;
+}
+
+#welcome h2 {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  margin-bottom: 2rem;
+}
+
+#enter-button {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  background: white;
+  color: black;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  scale:1;
+}
+
+#enter-button:hover {
+  /* background: black; */
+  /* color: white; */
+  /* border: 1px solid white; */
+  scale:1.5;
+}
+
+/* @keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+} */
+
+
+
+#background-video-player {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  filter: grayscale(70%);
+}
+
+#video-blocker {
+  display: none; /* default: don't block */
+  
+}
+
+@media (hover: none) and (pointer: coarse) {
+  #background-video-player{
+    pointer-events: none;
+    touch-action: none;
+  }
+   #video-blocker {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 101; /* Lower than welcome screen (9999), higher than background video (-1 or 100) */
+        background: transparent; /* Keep it transparent */
+        pointer-events: auto; /* It *should* block events by default */
+        touch-action: none; /* Prevent any touch actions from passing through */
+        display: block; /* Ensure it's always block on mobile to cover */
+    }
+}
+
+body {
+    scroll-behavior: smooth;
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    /* overflow-x: auto; */
+    overflow: hidden;
+}
+
+
+
+#background-videodefault {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            scale: 100%;
+            opacity: 0;
+            height: auto;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: grayscale(50%);
+        }
+
+
+
+.content-wrapper {
+    /* position: relative; */
+    overflow: hidden;
+    white-space: nowrap;
+    transition: all 0.5 ease;
+    height: 100vw;
+    width: auto;
+    scrollbar-width: auto;
+    cursor: grab;
+    scroll-snap-type: x mandatory;
+    
+  }
+
+
+  .content-wrapper{
+    height: 100vh;
+    min-width: 100vw;
+  }
+
+
+#scroll-drag-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5;
+  cursor: grab;
+  background: transparent;
+}
+
+ .content-wrapper.dragging{
+    user-select: none;
+    cursor: grabbing;
+ }
+
+.content {
+  display: flex;
+  flex-direction: row; /* Keep horizontal layout */
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* min-width: 250vw; */
+  width: max-content;
+  white-space: nowrap;
+}
+
+.thumb-container {
+  margin: 0 12px;
+  flex-shrink: 0;
+}
+
+
+
+.content-wrapper:hover .scroll-indicator {
+    opacity: 1; /* Show scrollbar on hover */
+}
+
+
+.video-thumb1 {
+    /* justify-content:center; */
+    /* align-items: center; */
+    /* scale: 100%; */
+    transform: translateY(-1000px);
+    /* will-change: transform, opacity, filter; */
+    min-width: 320px;
+    height: 140px;
+    margin: 0;
+    background: #fff;
+    transition: filter 0.6s ease; 
+     filter: grayscale(100%); 
+    cursor: crosshair;
+    opacity: 0;
+    position: relative;
+    overflow: visible;
+    display: inline-block;
+
+    
+}
+
+.video-thumb2 {
+
+    /* scale: 100%; */
+    transform: translateY(1000px);
+    /* transform: translateX(-2200px); */
+    will-change: transform, opacity, filter;
+    min-width: 320px;
+    height: 140px;
+    margin: 0;
+    background: #000000;
+    transition: filter 0.6s ease; 
+     filter: grayscale(100%); 
+    cursor: crosshair;
+    opacity: 0;
+    position: relative;
+    overflow: visible;
+    display: inline-block;
+
+     
+}
+
+.video-thumb1, .video-thumb2 {
+  position: relative;
+  display: inline-block;
+  min-width: 320px;
+  height: 140px;
+  margin: 0 clamp(6px, 1vw, 12px);
+  flex-shrink: 0;
+  backface-visibility: hidden;
+  perspective: 1000;
+  transform-style: preserve-3d;
+  border: none;
+  box-sizing: border-box;
+}
+
+.video-thumb1:hover, .video-thumb2:hover {
+    filter: grayscale(0%);   
+    
+}
+
+.video-thumb1 img, .video-thumb2 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.05); 
+  border: 4px solid white;
+  box-sizing: border-box;
+  margin: auto;
+}
+
+
+.thumb1, .thumb2, .thumb3, .thumb4, .thumb5, .thumb6, .thumb7, .thumb8{
+    min-width: 320px;
+    height: 140px;
+    margin: 0px 0vw;
+    z-index: 3;
+    position: relative;
+}
+
+.thumb1-1, .thumb1-2, .thumb1-3, .thumb1-4,.thumb2-1, .thumb2-2, .thumb2-3, .thumb2-4 ,.thumb3-1, .thumb3-2, .thumb3-3, .thumb3-4,.thumb4-1, .thumb4-2, .thumb4-3, .thumb4-4,
+.thumb5-1, .thumb5-2, .thumb5-3, .thumb5-4,.thumb6-1, .thumb6-2, .thumb6-3, .thumb6-4 ,.thumb8-1, .thumb8-2, .thumb8-3, .thumb8-4,.thumb7-1, .thumb7-2, .thumb7-3, .thumb7-4 {
+    position: absolute;
+    transform:translateY(0);
+    top: -7%;
+    left: -10px;
+    width: 100%;
+    height: 100%;
+    min-width: 320px;  
+    height: 140px;      
+    margin: 10px;
+    background-color: #333; 
+    z-index: 2;
+    opacity: 0;
+    
+}
+
+.video-thumb1, .video-thumb2,
+.thumb1, .thumb2, .thumb3, .thumb4,
+.thumb5, .thumb6, .thumb7, .thumb8{
+
+  min-width: clamp(200px, 40vw, 320px);
+height: clamp(100px, 18vw, 140px);
+}
+
+.thumb1 img,.thumb2 img,.thumb3 img,.thumb4 img,.thumb5 img,.thumb6 img,.thumb7 img,.thumb8 img{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: crosshair;
+    
+}
+
+
+.thumb1-1 img, .thumb1-2 img, .thumb1-3 img, .thumb1-4 img,.thumb2-1 img, .thumb2-2 img, .thumb2-3 img, .thumb2-4 img, .thumb3-1 img, .thumb3-2 img, .thumb3-3 img, .thumb3-4 img,.thumb4-1 img, .thumb4-2 img, .thumb4-3 img, .thumb4-4 img,
+.thumb5-1 img, .thumb5-2 img, .thumb5-3 img, .thumb5-4 img,.thumb7-1 img, .thumb7-2 img, .thumb7-3 img, .thumb7-4 img, .thumb6-1 img, .thumb6-2 img, .thumb6-3 img, .thumb6-4 img,.thumb8-1 img, .thumb8-2 img, .thumb8-3 img, .thumb8-4 img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: crosshair;
+}
+
+#video-player {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  display: flex;
+  pointer-events:block;
+}
+
+#video-player iframe {
+  width: 80vw;
+  height: 80vh;
+  max-width: 800px;
+  max-height: 450px;
+  object-fit: contain;
+  background: #000;
+  pointer-events:visible;
+}
+
+/* Default: hide mobile warning */
+.mobile-warning {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  background: #111;
+  color: white;
+  font-size: 1.2rem;
+  padding: 2rem;
+  text-align: center;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+/* On small screens, show warning and hide everything else */
+@media (max-width: 768px) {
+  .mobile-warning {
+    display: flex;
+    pointer-events: block;
+  }
+
+  #preloader,
+  #main-content,
+  #welcome,
+  #background-videodefault,
+  #video-player,
+  .cursor-circle,
+  .scroll-indicator {
+    display: none !important;
+  }
+}
